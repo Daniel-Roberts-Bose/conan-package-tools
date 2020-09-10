@@ -499,11 +499,12 @@ class ConanMultiPackager(object):
         if raw_options_for_building and conanfile:
             # get option and its values
             cloned_options = copy.copy(conanfile.options)
-            for key, value in conanfile.options.items():
-                if key == "shared" and shared_option_name:
-                    continue
-                elif key not in raw_options_for_building:
-                    del cloned_options[key]
+            if conanfile.options is not None:
+                for key, value in conanfile.options.items():
+                    if key == "shared" and shared_option_name:
+                        continue
+                    elif key not in raw_options_for_building:
+                        del cloned_options[key]
             cloned_options2 = {}
             for key, value in cloned_options.items():
                 # add package reference to the option name
